@@ -86,6 +86,38 @@ Agent 会自动加载本 Skill，帮你分析。
 
 ---
 
+## 安装方式
+
+### 在 Hermes Agent 中使用
+
+本 Skill 已预装在 Hermes Agent 中，无需额外操作。直接描述你的情况即可使用。
+
+如果你在使用其他 Hermes 实例，可以通过以下方式安装：
+
+```bash
+# 使用 skill_manage 工具
+# 或者将本仓库内容复制到你的 skills 目录下
+# 路径：skills/productivity/pip/
+```
+
+### 在 OpenClaw / ClawHub 中使用
+
+OpenClaw 支持直接从 GitHub 安装 Skill：
+
+```bash
+# 方式一：通过 GitHub URL 安装
+openclaw skill add https://github.com/SonicBotMan/pip.skill
+
+# 方式二：如果 OpenClaw 支持 skill 命名格式
+openclaw skill install SonicBotMan/pip
+```
+
+安装成功后，直接向 OpenClaw 描述你的情况即可。
+
+> **如果你知道 OpenClaw 更准确的安装命令，欢迎提交 PR 完善这里。**
+
+---
+
 ## 三个最重要的原则
 
 > **不要当场签字。** 说"我需要看一下"然后离开，这不会让你少拿钱。
