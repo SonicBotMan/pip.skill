@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>labor-rights-defense — 中国劳动维权方法论 AI Agent Skill</title>
+<meta name="description" content="被 PIP 了？别慌。基于 2025 司法解释二 + 2026 最新判例的劳动维权 AI Agent Skill。454 万件/年劳动仲裁背后的方法论。">
+<meta name="author" content="SonicBotMan">
+<meta property="og:title" content="labor-rights-defense — 劳动维权方法论">
+<meta property="og:description" content="基于 2025 司法解释二 + 2026 最新判例的 AI Agent Skill">
+<meta property="og:type" content="website">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0a0e1f;
+  --bg-elevated: #0f1530;
+  --surface: #161d3f;
+  --surface-2: #1e2752;
+  --border: #2a3270;
+  --border-light: #3a4580;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --accent-red: #ef4444;
+  --accent-red-glow: rgba(239, 68, 68, 0.3);
+  --accent-blue: #3b82f6;
+  --accent-blue-glow: rgba(59, 130, 246, 0.3);
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(239, 68, 68, 0.15), transparent);
+}
+
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Background glow */
+.bg-hero-glow {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(239, 68, 68, 0.15), transparent 70%),
+    radial-gradient(ellipse 50% 30% at 80% 10%, rgba(59, 130, 246, 0.1), transparent 70%),
+    radial-gradient(ellipse 50% 30% at 20% 30%, rgba(245, 158, 11, 0.05), transparent 70%);
+}
+
+/* Animated grid */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(42, 50, 112, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 50, 112, 0.2) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 70%);
+}
+
+/* Gradient text */
+.gradient-text-red {
+  background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s, box-shadow 0.3s;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-light);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 30px -5px var(--accent-red-glow);
+}
+
+/* Number animation */
+.stat-number {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Fade in on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glow pulse for hero CTA */
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 30px -5px var(--accent-red-glow); }
+  50% { box-shadow: 0 0 50px 0 var(--accent-red-glow); }
+}
+.pulse-red { animation: pulse-red 3s ease-in-out infinite; }
+
+/* Process flow lines */
+.flow-line {
+  background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-gold) 50%, var(--accent-green) 100%);
+  height: 2px;
+}
+
+/* Code block style */
+.code-block {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Tab buttons */
+.tab-btn {
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+.tab-btn.active {
+  border-bottom-color: var(--accent-red);
+  color: var(--text-primary);
+}
+.tab-btn:not(.active) {
+  color: var(--text-secondary);
+}
+.tab-btn:not(.active):hover {
+  color: var(--text-primary);
+}
+
+/* Nav backdrop blur */
+.nav-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 14, 31, 0.7);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Warning stripe (for hero hook) */
+.warning-stripe {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(239, 68, 68, 0.1),
+    rgba(239, 68, 68, 0.1) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+/* Mobile menu */
+@media (max-width: 768px) {
+  .hero-title { font-size: 3rem !important; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<nav class="nav-blur fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2">
+      <svg class="w-6 h-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span class="font-bold text-lg">labor-rights-defense</span>
+      <span class="text-xs text-gray-500 font-mono ml-2 hidden sm:inline">v5.0.0</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm">
+      <a href="#problem" class="text-gray-300 hover:text-white transition">痛点</a>
+      <a href="#framework" class="text-gray-300 hover:text-white transition">五步框架</a>
+      <a href="#cases" class="text-gray-300 hover:text-white transition">2026 判例</a>
+      <a href="#compare" class="text-gray-300 hover:text-white transition">对比</a>
+      <a href="#install" class="text-gray-300 hover:text-white transition">安装</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="https://github.com/SonicBotMan/labor-rights-defense" class="text-gray-300 hover:text-white transition" aria-label="GitHub">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="#install" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg transition pulse-red">
+        <span>30 秒上手</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="relative pt-32 pb-20 bg-hero-glow overflow-hidden">
+  <div class="absolute inset-0 grid-bg"></div>
+  <div class="relative max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-4xl mx-auto">
+
+      <!-- Hook banner -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-red-500/30 bg-red-500/10 warning-stripe">
+        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+        <span class="text-xs text-red-300 font-medium tracking-wide">被通知 PIP？不要当场签字。</span>
+      </div>
+
+      <p class="text-sm text-gray-400 font-mono mb-4 tracking-widest uppercase">Labor Rights Defense Skill · v5.0.0</p>
+
+      <h1 class="hero-title text-6xl md:text-7xl font-black leading-tight mb-6">
+        被 <span class="gradient-text-red">PIP</span> 了？<br>
+        <span class="text-white">别慌。</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+        基于 <strong class="text-white">2025 司法解释二</strong>（9 月 1 日施行）和 <strong class="text-white">2026 年最新判例</strong>的劳动维权 AI Agent Skill。<br>
+        <span class="text-gray-400">每年 454 万劳动者通过仲裁维权 — 你不是一个人。</span>
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
+        <a href="#install" class="w-full sm:w-auto px-8 py-3.5 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition pulse-red">
+          30 秒决策树
+        </a>
+        <a href="https://github.com/SonicBotMan/labor-rights-defense" class="w-full sm:w-auto px-8 py-3.5 border border-gray-700 hover:border-gray-500 text-white font-semibold rounded-lg transition flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-grid grid grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <div class="text-center reveal">
+          <div class="stat-number text-3xl md:text-5xl font-black gradient-text-red" data-target="454.3" data-suffix=" 万">0</div>
+          <div class="text-xs md:text-sm text-gray-400 mt-2">2025 年立案（万件）</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="stat-number text-3xl md:text-5xl font-black gradient-text-blue" data-target="472.1" data-suffix=" 万">0</div>
+          <div class="text-xs md:text-sm text-gray-400 mt-2">涉及劳动者（万人）</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="stat-number text-3xl md:text-5xl font-black text-yellow-400" data-target="994.7" data-suffix=" 亿">0</div>
+          <div class="text-xs md:text-sm text-gray-400 mt-2">结案金额（亿元）</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="stat-number text-3xl md:text-5xl font-black text-green-400" data-target="14" data-suffix="">0</div>
+          <div class="text-xs md:text-sm text-gray-400 mt-2">触发短语数</div>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-6">数据来源：人社部《2025 年度人力资源和社会保障事业发展统计公报》（2026-07-16 发布）</p>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== THE PROBLEM ============== -->
+<section id="problem" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="text-sm text-red-400 font-mono mb-3 tracking-widest uppercase">The Problem</p>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">劳动者维权的 4 大痛点</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">这不是个案 — 是每年 454 万人共同面对的困境。</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6">
+        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">不知道公司违法了</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">公司说"绩效不达标"，但你不知道这需要三重举证：考核标准签字 + 培训/调岗记录 + 仍不胜任考核。</p>
+      </div>
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6">
+        <div class="w-12 h-12 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">被压着当场签字</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">HR 在小会议室施压，"今天必须签"。签了"自愿离职"，2N 赔偿金可能变成 0。一句"我需要看一下"能救命。</p>
+      </div>
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H1l8-8 8 8h-8v8z"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">不知道该要多少钱</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">公司给 N+1 就接受？2N 才是违法解除标准。还有年假 300%、加班费、未付绩效… 1 项都不能漏。</p>
+      </div>
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2">拖时间怕被反咬</h3>
+        <p class="text-sm text-gray-400 leading-relaxed">"拖一拖再说" — 但公司比你更急。仲裁时效 1 年，公司要花精力应诉，主动权在劳动者这边。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== THREE RULES ============== -->
+<section class="py-24 bg-[var(--bg-elevated)] border-y border-[var(--border)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="text-sm text-yellow-400 font-mono mb-3 tracking-widest uppercase">The Three Iron Rules</p>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">三条铁律 — 谈判前必须知道</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">这三条原则，比任何法律条文都更重要。</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+      <div class="reveal relative overflow-hidden bg-[var(--surface)] border border-red-500/30 rounded-2xl p-8 card-hover">
+        <div class="absolute top-4 right-4 text-6xl font-black text-red-500/20">01</div>
+        <div class="relative">
+          <div class="w-10 h-10 rounded-lg bg-red-500 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+          <h3 class="text-2xl font-black mb-3">不要当场签字</h3>
+          <p class="text-gray-300 leading-relaxed mb-4">说"我需要看一下"然后离开，这不会让你少拿钱。</p>
+          <div class="text-xs text-gray-500 border-l-2 border-red-500 pl-3">
+            "自愿离职" = 放弃 2N<br>
+            "协商解除" = 最低 N+1
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal relative overflow-hidden bg-[var(--surface)] border border-yellow-500/30 rounded-2xl p-8 card-hover">
+        <div class="absolute top-4 right-4 text-6xl font-black text-yellow-500/20">02</div>
+        <div class="relative">
+          <div class="w-10 h-10 rounded-lg bg-yellow-500 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </div>
+          <h3 class="text-2xl font-black mb-3">不主动亮证据</h3>
+          <p class="text-gray-300 leading-relaxed mb-4">先听公司说什么，再决定亮什么牌。</p>
+          <div class="text-xs text-gray-500 border-l-2 border-yellow-500 pl-3">
+            "我有完整证据链" — OK<br>
+            "我有录音" — 暴露底牌
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal relative overflow-hidden bg-[var(--surface)] border border-blue-500/30 rounded-2xl p-8 card-hover">
+        <div class="absolute top-4 right-4 text-6xl font-black text-blue-500/20">03</div>
+        <div class="relative">
+          <div class="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="text-2xl font-black mb-3">拖时间对你有利</h3>
+          <p class="text-gray-300 leading-relaxed mb-4">仲裁时效 1 年，公司比你更急。</p>
+          <div class="text-xs text-gray-500 border-l-2 border-blue-500 pl-3">
+            拖延 = 公司花精力应诉<br>
+            = 公司更愿意谈
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== FIVE STEP FRAMEWORK ============== -->
+<section id="framework" class="py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="text-sm text-blue-400 font-mono mb-3 tracking-widest uppercase">The Five-Step Framework</p>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">五步维权方法论</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">从被通知解除到拿回赔偿，五步走完。</p>
+    </div>
+
+    <div class="max-w-5xl mx-auto">
+
+      <!-- Step 1 -->
+      <div class="reveal flex gap-6 items-start mb-6">
+        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center">
+          <span class="text-2xl font-black gradient-text-red">01</span>
+        </div>
+        <div class="flex-1 bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6 card-hover">
+          <h3 class="text-xl font-bold mb-2">定性 — 这是什么性质的解除？</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-3">给公司的解除理由做"三重检验"：理由是否法定（39/40/41 条）→ 程序是否合规（30 天通知/工会）→ 举证责任（公司必须证明三件事）。</p>
+          <div class="font-mono text-xs text-red-300 bg-red-500/5 border border-red-500/20 rounded p-2">
+            ⚠️ AI 替岗不属"客观情况重大变化"（2026 杭州/广州中院判例）
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="reveal flex gap-6 items-start mb-6">
+        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center">
+          <span class="text-2xl font-black text-orange-400">02</span>
+        </div>
+        <div class="flex-1 bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6 card-hover">
+          <h3 class="text-xl font-bold mb-2">查据 — 公司能证明自己的理由吗？</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">劳动争议中举证责任主要在公司。公司说你"不能胜任"，必须同时证明：①考核标准签字 ②培训或调岗记录 ③调岗后仍不胜任。三者缺一即违法解除。</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="reveal flex gap-6 items-start mb-6">
+        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center">
+          <span class="text-2xl font-black text-yellow-400">03</span>
+        </div>
+        <div class="flex-1 bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6 card-hover">
+          <h3 class="text-xl font-bold mb-2">算账 — 我实际能拿到多少？</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-3">三层赔偿金计算：①保底（N/N+1/2N）②附加（年假 300%/加班费/未付绩效）③2025 新规武器（解释二第 19 条社保无效 + 第 18 条工资损失按正常劳动工资）。</p>
+          <div class="font-mono text-xs text-yellow-300 bg-yellow-500/5 border border-yellow-500/20 rounded p-2">
+            N+1 vs 2N 差距可达 50% — 别签低
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="reveal flex gap-6 items-start mb-6">
+        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/30 flex items-center justify-center">
+          <span class="text-2xl font-black text-green-400">04</span>
+        </div>
+        <div class="flex-1 bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6 card-hover">
+          <h3 class="text-xl font-bold mb-2">谈判 — 用什么姿势进场？</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">谈判桌上的四张牌：①法律牌（最强，建立底线）②证据牌（底牌，不轻易亮）③程序牌（针对公司漏洞）④时间牌（拖得起的人占优）。</p>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="reveal flex gap-6 items-start">
+        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center">
+          <span class="text-2xl font-black text-blue-400">05</span>
+        </div>
+        <div class="flex-1 bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6 card-hover">
+          <h3 class="text-xl font-bold mb-2">行动 — 仲裁真的不难</h3>
+          <p class="text-gray-400 text-sm leading-relaxed mb-3">材料交上去等通知，时效 1 年，费用低。仲裁请求必须列全：2N + 工资差额 + 加班费 + 未休年假 + 应得绩效 + 因未缴社保的损失。</p>
+          <div class="font-mono text-xs text-blue-300 bg-blue-500/5 border border-blue-500/20 rounded p-2">
+            一裁终局（小额）= 公司不能起诉
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== FEATURES ============== -->
+<section class="py-24 bg-[var(--bg-elevated)] border-y border-[var(--border)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="text-sm text-green-400 font-mono mb-3 tracking-widest uppercase">Core Features</p>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">v5.0.0 核心特性</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">从 v4.0 占位符大纲，到 v5.0.0 完整法律工具。</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-8">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500 mb-1">01</div>
+            <h3 class="text-xl font-bold">完全符合 AgentSkills 规范</h3>
+          </div>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">SKILL.md frontmatter 含 14 个中文触发短语，name 仅 [a-z0-9-]，description ≤1024 字符，body < 500 行。OpenClaw / Claude Code / Claude.ai 通用。</p>
+        <div class="font-mono text-xs text-gray-400 bg-[var(--bg)] border border-[var(--border)] rounded p-3">
+          name: <span class="text-green-400">labor-rights-defense</span><br>
+          triggers: <span class="text-yellow-300">14 个</span> · body: <span class="text-yellow-300">350 行</span>
+        </div>
+      </div>
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-8">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500 mb-1">02</div>
+            <h3 class="text-xl font-bold">23+ 官方一手案例</h3>
+          </div>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">从占位符升级为真实案例库：2026 杭州中院 AI 替岗案 + 2026 广州中院 AI 替代案 + 2026 成都中院 8 案 + 2025 北京十大 + 第四批典型案例 + 北京三中院宋某 PIP 案。</p>
+        <div class="font-mono text-xs text-gray-400 bg-[var(--bg)] border border-[var(--border)] rounded p-3">
+          official-2026: <span class="text-red-400">4 案</span> · official-2025: <span class="text-red-400">15 案</span><br>
+          含完整案号: <span class="text-yellow-300">(2025)京03民终16369号</span>
+        </div>
+      </div>
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-8">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500 mb-1">03</div>
+            <h3 class="text-xl font-bold">解释（二）21 条全文</h3>
+          </div>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">2025-09-01 施行的法释〔2025〕12 号司法解释全文收录。三大新武器：第 19 条（社保免责约定无效）/ 第 13 条（竞业限制未知悉商业秘密则不生效）/ 第 18 条（工资损失按正常劳动工资）。</p>
+        <div class="font-mono text-xs text-gray-400 bg-[var(--bg)] border border-[var(--border)] rounded p-3">
+          法律核验: <span class="text-blue-400">2026-07-27</span><br>
+          撤回过时引用: <span class="text-yellow-300">合同法→民法典</span>
+        </div>
+      </div>
+
+      <div class="reveal card-hover bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-8">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500 mb-1">04</div>
+            <h3 class="text-xl font-bold">JSON 双模式计算器</h3>
+          </div>
+        </div>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">Python 计算器支持交互模式（用户）+ JSON stdin 模式（AI Agent 调用）。自动计算三层赔偿：N / 2N / 代通知金 / 年假 300% / 加班费 / 工资损失（解释二第 18 条）。</p>
+        <div class="font-mono text-xs text-gray-400 bg-[var(--bg)] border border-[var(--border)] rounded p-3">
+          <span class="text-purple-400">$</span> echo '{"years":3.5,"monthly_salary":25000}' <span class="text-gray-500">|</span><br>
+          &nbsp;&nbsp;python3 compensation-calculator.py <span class="text-yellow-300">--json</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== 2026 LATEST CASES ============== -->
+<section id="cases" class="py-24">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="text-sm text-purple-400 font-mono mb-3 tracking-widest uppercase">Latest Cases · 2026</p>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">2026 年最新判例</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">法院官方一手发布 · 8 个权威媒体相互印证</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+
+      <!-- Case A: Hangzhou -->
+      <div class="reveal card-hover bg-gradient-to-br from-red-500/5 to-transparent border border-red-500/30 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <span class="px-2 py-1 text-xs font-mono bg-red-500/20 text-red-300 rounded">2026-04 二审</span>
+          <span class="text-xs text-gray-500">⭐ landmark</span>
+        </div>
+        <h3 class="text-lg font-bold mb-3">杭州中院 AI 替岗案</h3>
+        <p class="text-sm text-gray-400 mb-4 leading-relaxed">某网讯科技公司与周某劳动争议案。35 岁 AI 大模型质检主管被降薪 40%（25K→15K）后单方解除。法院认定 AI 替代不属"客观情况重大变化"。</p>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between border-b border-[var(--border)] pb-2">
+            <span class="text-gray-500">判决</span>
+            <span class="text-red-300 font-mono">违法解除 · 2N</span>
+          </div>
+          <div class="flex justify-between border-b border-[var(--border)] pb-2">
+            <span class="text-gray-500">赔偿金额</span>
+            <span class="text-yellow-300 font-mono font-bold">26 万余元</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">承办法官</span>
+            <span class="text-gray-300 font-mono">施国强</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case B: Guangzhou -->
+      <div class="reveal card-hover bg-gradient-to-br from-blue-500/5 to-transparent border border-blue-500/30 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <span class="px-2 py-1 text-xs font-mono bg-blue-500/20 text-blue-300 rounded">2026-06 二审</span>
+          <span class="text-xs text-gray-500">⭐ 平面设计</span>
+        </div>
+        <h3 class="text-lg font-bold mb-3">广州中院 AI 替代案</h3>
+        <p class="text-sm text-gray-400 mb-4 leading-relaxed">魏某 vs 某智能公司（平面设计师 3 年）。公司以"AI 取代平面设计"取消岗位。法院认定：设计人才需求未灭失（设有"全案设计师"岗）。</p>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between border-b border-[var(--border)] pb-2">
+            <span class="text-gray-500">判决</span>
+            <span class="text-blue-300 font-mono">违法解除</span>
+          </div>
+          <div class="flex justify-between border-b border-[var(--border)] pb-2">
+            <span class="text-gray-500">赔偿差额</span>
+            <span class="text-yellow-300 font-mono font-bold">3.5 万余元</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">经办法官</span>
+            <span class="text-gray-300 font-mono">陈诗媛</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case C: Beijing -->
+      <div class="reveal card-hover bg-gradient-to-br from-yellow-500/5 to-transparent border border-yellow-500/30 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <span class="px-2 py-1 text-xs font-mono bg-yellow-500/20 text-yellow-300 rounded">2026-01 二审</span>
+          <span class="text-xs text-gray-500">⭐ PIP 三重举证</span>
+        </div>
+        <h3 class="text-lg font-bold mb-3">北京三中院 PIP 案</h3>
+        <p class="text-sm text-gray-400 mb-4 leading-relaxed">宋某 vs 北京某科技公司（高级 web 研发工程师，月薪 24.5K）。案号 (2025)京03民终16369 号。确立"不能胜任+调岗仍不胜任"三重举证责任。</p>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between border-b border-[var(--border)] pb-2">
+            <span class="text-gray-500">判决</span>
+            <span class="text-yellow-300 font-mono">违法解除</span>
+          </div>
+          <div class="flex justify-between border-b border-[var(--border)] pb-2">
+            <span class="text-gray-500">赔偿金额</span>
+            <span class="text-yellow-300 font-mono font-bold">92,386.92 元</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">案号</span>
+            <span class="text-gray-300 font-mono text-[10px]">(2025)京03民终16369</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="https://github.com/SonicBotMan/labor-rights-defense/tree/main/cases" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition">
+        查看全部 23+ 官方案例
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== COMPARISON ============== -->
+<section id="compare" class="py-24 bg-[var(--bg-elevated)] border-y border-[var(--border)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="text-sm text-cyan-400 font-mono mb-3 tracking-widest uppercase">Competitive Analysis</p>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">v4.0 vs v5.0.0 对比</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">从占位符到完整法律工具的进化。</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl overflow-hidden">
+
+        <div class="grid grid-cols-3 bg-[var(--bg)] border-b border-[var(--border)]">
+          <div class="p-4 text-xs text-gray-500 font-mono uppercase tracking-wider">维度</div>
+          <div class="p-4 text-xs text-gray-500 font-mono uppercase tracking-wider text-center">v4.0（原版）</div>
+          <div class="p-4 text-xs text-red-400 font-mono uppercase tracking-wider text-center bg-red-500/5">v5.0.0</div>
+        </div>
+
+        <div class="divide-y divide-[var(--border)]">
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">真实案例数</div>
+            <div class="p-4 text-center text-sm text-gray-500 font-mono">0（占位符）</div>
+            <div class="p-4 text-center text-sm text-white font-mono font-bold bg-red-500/5">23+ 官方一手</div>
+          </div>
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">法律引用时效</div>
+            <div class="p-4 text-center text-sm text-gray-500 font-mono">部分废止</div>
+            <div class="p-4 text-center text-sm text-white font-mono font-bold bg-red-500/5">现行有效（民法典+解释二）</div>
+          </div>
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">AgentSkills 合规</div>
+            <div class="p-4 text-center text-sm text-red-400 font-mono">❌ 不合规</div>
+            <div class="p-4 text-center text-sm text-green-400 font-mono font-bold bg-red-500/5">✅ 完全合规</div>
+          </div>
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">统计数据</div>
+            <div class="p-4 text-center text-sm text-gray-500 font-mono">无</div>
+            <div class="p-4 text-center text-sm text-white font-mono font-bold bg-red-500/5">2025 年度公报</div>
+          </div>
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">完整判例案号</div>
+            <div class="p-4 text-center text-sm text-gray-500 font-mono">0</div>
+            <div class="p-4 text-center text-sm text-white font-mono font-bold bg-red-500/5">1 个（北京三中院）</div>
+          </div>
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">一手来源占比</div>
+            <div class="p-4 text-center text-sm text-gray-500 font-mono">0%</div>
+            <div class="p-4 text-center text-sm text-green-400 font-mono font-bold bg-red-500/5">73%（11/15）</div>
+          </div>
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">Skill 触发短语</div>
+            <div class="p-4 text-center text-sm text-gray-500 font-mono">0</div>
+            <div class="p-4 text-center text-sm text-white font-mono font-bold bg-red-500/5">14 个</div>
+          </div>
+          <div class="grid grid-cols-3 items-center">
+            <div class="p-4 text-sm text-gray-300">计算器模式</div>
+            <div class="p-4 text-center text-sm text-gray-500 font-mono">1（交互）</div>
+            <div class="p-4 text-center text-sm text-white font-mono font-bold bg-red-500/5">2（交互+JSON）</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== QUICK START ============== -->
+<section id="install" class="py-24">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16 reveal">
+      <p class="text-sm text-green-400 font-mono mb-3 tracking-widest uppercase">Quick Start</p>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">30 秒上手</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">三种使用方式，按需选择。</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="reveal max-w-3xl mx-auto">
+      <div class="flex border-b border-[var(--border)] mb-6">
+        <button class="tab-btn active px-6 py-3 text-sm font-medium" data-tab="openclaw">OpenClaw</button>
+        <button class="tab-btn px-6 py-3 text-sm font-medium" data-tab="claude">Claude Code</button>
+        <button class="tab-btn px-6 py-3 text-sm font-medium" data-tab="read">直接阅读</button>
+      </div>
+
+      <!-- OpenClaw -->
+      <div class="tab-content" data-content="openclaw">
+        <div class="code-block rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-4 text-gray-500 text-xs">
+            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+            <span class="ml-2">Terminal</span>
+          </div>
+          <pre class="text-gray-300"><code><span class="text-green-400">#</span> <span class="text-gray-400">从 GitHub 安装</span>
+<span class="text-purple-400">openclaw</span> skills install <span class="text-yellow-300">git:SonicBotMan/labor-rights-defense@master</span>
+
+<span class="text-green-400">#</span> <span class="text-gray-400">验证加载</span>
+<span class="text-purple-400">openclaw</span> skills list <span class="text-gray-500">|</span> <span class="text-purple-400">grep</span> labor
+<span class="text-gray-500"># → labor-rights-defense ✓</span>
+
+<span class="text-green-400">#</span> <span class="text-gray-400">在对话中触发</span>
+<span class="text-gray-500"># 输入 "我被 PIP 了" 或 "解除劳动合同"</span>
+<span class="text-gray-500"># Skill 自动激活，按五步框架输出分析</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Claude Code -->
+      <div class="tab-content hidden" data-content="claude">
+        <div class="code-block rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-4 text-gray-500 text-xs">
+            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+            <span class="ml-2">Terminal</span>
+          </div>
+          <pre class="text-gray-300"><code><span class="text-green-400">#</span> <span class="text-gray-400">克隆到本地</span>
+<span class="text-purple-400">git</span> clone https://github.com/SonicBotMan/labor-rights-defense.git
+
+<span class="text-green-400">#</span> <span class="text-gray-400">复制到 Claude Code skills 目录</span>
+<span class="text-purple-400">cp</span> -r labor-rights-defense ~/.claude/skills/
+
+<span class="text-green-400">#</span> <span class="text-gray-400">启动 Claude Code</span>
+<span class="text-purple-400">claude</span>
+
+<span class="text-gray-500"># 输入触发短语即可自动激活：</span>
+<span class="text-gray-500"># "公司说我不能胜任" / "2N 怎么算" / "劳动仲裁流程"</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Read -->
+      <div class="tab-content hidden" data-content="read">
+        <div class="code-block rounded-xl p-6">
+          <div class="flex items-center gap-2 mb-4 text-gray-500 text-xs">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>不需要任何 AI 平台</span>
+          </div>
+          <pre class="text-gray-300"><code><span class="text-green-400">#</span> <span class="text-gray-400">直接在 GitHub 阅读</span>
+<span class="text-gray-500"># 1. 先看 README.md 的"30 秒决策树"</span>
+<span class="text-gray-500"># 2. 根据场景跳转：</span>
+
+<span class="text-yellow-300">cases/</span>           <span class="text-gray-500"># 23+ 官方案例对号入座</span>
+<span class="text-yellow-300">methodology/</span>      <span class="text-gray-500"># 五步框架 + 三层赔偿</span>
+<span class="text-yellow-300">negotiation/</span>      <span class="text-gray-500"># 11 个谈判话术</span>
+<span class="text-yellow-300">references/</span>       <span class="text-gray-500"># 法条 + 实战指南 + 模板</span>
+
+<span class="text-green-400">#</span> <span class="text-gray-400">或复制 SKILL.md 到任意 AI 助手</span>
+<span class="text-gray-500"># ChatGPT / Kimi / 通义千问 / 文心一言</span></code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Calculator demo -->
+    <div class="reveal mt-12 max-w-2xl mx-auto">
+      <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-6">
+        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="16" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+          赔偿金计算器（示例）
+        </h3>
+        <div class="code-block rounded-lg p-4 text-xs">
+          <pre class="text-gray-300"><code><span class="text-purple-400">$</span> <span class="text-purple-400">echo</span> <span class="text-yellow-300">'{"years":3.5,"monthly_salary":25000,"unused_annual_leave":8}'</span> \
+    <span class="text-gray-500">|</span> <span class="text-purple-400">python3</span> compensation-calculator.py <span class="text-yellow-300">--json</span>
+
+<span class="text-gray-500">{</span>
+  <span class="text-yellow-300">"N"</span>: <span class="text-green-400">100000.0</span>,
+  <span class="text-yellow-300">"double_N"</span>: <span class="text-red-400">200000.0</span>,         <span class="text-gray-500">// 2N 违法解除</span>
+  <span class="text-yellow-300">"one_month_notice"</span>: <span class="text-green-400">25000.0</span>,     <span class="text-gray-500">// 代通知金</span>
+  <span class="text-yellow-300">"annual_leave_compensation"</span>: <span class="text-green-400">18390.80</span>,  <span class="text-gray-500">// 未休年假 300%</span>
+  <span class="text-yellow-300">"recommended_claim"</span>: <span class="text-red-400">243390.80</span>      <span class="text-gray-500">// 推荐主张总额</span>
+<span class="text-gray-500">}</span></code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============== FOOTER CTA ============== -->
+<section class="py-24 bg-hero-glow relative overflow-hidden border-t border-[var(--border)]">
+  <div class="absolute inset-0 grid-bg"></div>
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-4xl md:text-5xl font-black mb-6">
+      <span class="gradient-text-red">被 PIP 了？</span><br>
+      <span class="text-white">知道这些能救命。</span>
+    </h2>
+    <p class="text-gray-400 mb-10 max-w-2xl mx-auto">
+      每年 454 万劳动者通过仲裁维权。<br>
+      现在就开始用 AI Agent Skill 保护自己。
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://github.com/SonicBotMan/labor-rights-defense" class="px-8 py-3.5 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition pulse-red">
+        View on GitHub
+      </a>
+      <a href="https://github.com/SonicBotMan/labor-rights-defense/blob/main/SKILL.md" class="px-8 py-3.5 border border-gray-700 hover:border-gray-500 text-white font-semibold rounded-lg transition">
+        阅读 SKILL.md
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="py-12 border-t border-[var(--border)] bg-[var(--bg)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-8 mb-8">
+
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="font-bold">labor-rights-defense</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">中国劳动维权方法论 AI Agent Skill · v5.0.0<br>基于 2025 司法解释二 + 2026 最新判例</p>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold mb-3 text-gray-300">资源</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="https://github.com/SonicBotMan/labor-rights-defense/blob/main/README.md" class="text-gray-500 hover:text-white transition">README</a></li>
+          <li><a href="https://github.com/SonicBotMan/labor-rights-defense/blob/main/CHANGELOG.md" class="text-gray-500 hover:text-white transition">Changelog</a></li>
+          <li><a href="https://github.com/SonicBotMan/labor-rights-defense/blob/main/CONTRIBUTING.md" class="text-gray-500 hover:text-white transition">贡献指引</a></li>
+          <li><a href="https://github.com/SonicBotMan/labor-rights-defense/blob/main/DEPLOY.md" class="text-gray-500 hover:text-white transition">部署指南</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold mb-3 text-gray-300">法律援助</h4>
+        <ul class="space-y-2 text-xs">
+          <li><span class="text-gray-500">12348 法律服务热线</span></li>
+          <li><a href="https://12348.gov.cn" class="text-gray-500 hover:text-white transition">12348 中国法律服务网</a></li>
+          <li><span class="text-gray-500">12333 人社服务热线</span></li>
+          <li><a href="https://wenshu.court.gov.cn" class="text-gray-500 hover:text-white transition">中国裁判文书网</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold mb-3 text-gray-300">关联项目</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="https://github.com/SonicBotMan/SoloFlow" class="text-gray-500 hover:text-white transition">SoloFlow</a></li>
+          <li><a href="https://github.com/SonicBotMan/lobster-press" class="text-gray-500 hover:text-white transition">lobster-press</a></li>
+          <li><a href="https://github.com/SonicBotMan/clawicu" class="text-gray-500 hover:text-white transition">ClawICU</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-gray-500">
+        © 2026 <a href="https://github.com/SonicBotMan" class="hover:text-white transition">SonicBotMan</a> ·
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="hover:text-white transition">CC-BY-SA-4.0</a>
+      </p>
+      <p class="text-xs text-gray-600">
+        ⚠️ 本项目不构成律师函法律意见 · 复杂案件请咨询专业劳动法律师
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============== Number counter animation ==============
+function animateNumber(el, target, suffix = '', duration = 2000) {
+  const startTime = performance.now();
+  const isFloat = target % 1 !== 0;
+
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // easeOutExpo
+    const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+    const current = target * eased;
+    el.textContent = (isFloat ? current.toFixed(1) : Math.floor(current)) + suffix;
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      el.textContent = (isFloat ? target.toFixed(1) : target) + suffix;
+    }
+  }
+  requestAnimationFrame(update);
+}
+
+// ============== Reveal on scroll ==============
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+
+      // Trigger number animation if has data-target
+      const numEl = entry.target.querySelector('.stat-number[data-target]') ||
+                    (entry.target.classList.contains('stat-number') && entry.target.hasAttribute('data-target') ? entry.target : null);
+      if (numEl && !numEl.dataset.animated) {
+        numEl.dataset.animated = 'true';
+        const target = parseFloat(numEl.dataset.target);
+        const suffix = numEl.dataset.suffix || '';
+        animateNumber(numEl, target, suffix);
+      }
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ============== Tab switching ==============
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(c => {
+      c.classList.toggle('hidden', c.dataset.content !== target);
+    });
+  });
+});
+
+// ============== Smooth scroll handled by CSS ==============
+</script>
+
+</body>
+</html>
