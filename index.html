@@ -9,6 +9,11 @@
 <meta property="og:title" content="你能拿多少？— 劳动维权即时计算">
 <meta property="og:description" content="输入 3 个数字，立刻看到结果。去年 454 万人和你一样。">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://sonicbotman.github.io/labor-rights-defense/">
+<meta property="og:site_name" content="labor-rights-defense">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="被公司通知解除了？先别签字。">
+<meta name="twitter:description" content="输入 3 个数字，立刻看到 2N 赔偿金。去年 454 万人和你一样。">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -538,14 +543,51 @@ body {
       <p class="text-lg text-white font-bold mb-8">
         转发给可能需要的朋友
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-3">
-        <button onclick="copyLink()" class="px-6 py-3 border border-gray-700 hover:border-gray-500 rounded-lg text-sm transition flex items-center justify-center gap-2">
+      <!-- 预填配文 -->
+      <div class="bg-[var(--bg)] border border-[var(--border)] rounded-xl p-4 max-w-md mx-auto mb-6 text-left">
+        <div class="text-xs text-gray-500 mb-2 flex items-center justify-between">
+          <span>配文（可直接用）</span>
+          <button onclick="copyShareText()" class="text-red-400 hover:text-red-300 transition font-medium" id="copy-text-btn">复制配文</button>
+        </div>
+        <p class="text-sm text-gray-300 leading-relaxed" id="share-text-preview">
+          被 PIP 了？被通知解除？<br>
+          不要当场签字。说「我考虑一下」然后离开。<br>
+          去年 454 万劳动者通过仲裁维权，平均拿到 2.25 万。<br>
+          输入年限和月薪，立刻算出赔偿金 ↓
+        </p>
+      </div>
+
+      <!-- 平台按钮 -->
+      <div class="flex flex-wrap justify-center gap-2 mb-4">
+        <!-- X / Twitter -->
+        <a id="share-twitter" href="#" target="_blank" rel="noopener" onclick="openShare(event, 'twitter')" class="inline-flex items-center gap-1.5 px-3.5 py-2 border border-[var(--border)] rounded-lg text-xs text-gray-400 hover:text-white hover:border-[var(--border-light)] transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span>X</span>
+        </a>
+        <!-- 微博 -->
+        <a id="share-weibo" href="#" target="_blank" rel="noopener" onclick="openShare(event, 'weibo')" class="inline-flex items-center gap-1.5 px-3.5 py-2 border border-[var(--border)] rounded-lg text-xs text-gray-400 hover:text-white hover:border-[var(--border-light)] transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6.81 16.17c-2.21.22-4.12-.99-4.27-2.69-.15-1.71 1.52-3.26 3.74-3.48 2.21-.22 4.13.98 4.27 2.69.15 1.71-1.52 3.27-3.74 3.48zm11.92-6.27c-.78-.31-1.31-.47-.91-1.39.88-2.02-.12-3.58-1.71-3.58-.72 0-1.29.35-1.71.95-1.46-1.12-3.43-1.65-5.62-1.65-4.62 0-8.36 2.96-8.36 6.61 0 3.65 3.74 6.61 8.36 6.61 4.53 0 8.21-2.86 8.35-6.41.24.01.47.01.7.01.6 0 1.11-.24 1.38-.69.32-.54.27-1.27-.14-1.92-.46-.72-1.01-.99-1.67-.99-.27 0-.55.06-.83.15.39-.44.81-.62 1.25-.62.57 0 1.18.27 1.69.93.5.65.53 1.34.22 1.84-.26.42-.71.62-1.24.62-.09 0-.18-.01-.27-.02-.37-.04-.71-.08-1.06-.08-.08 0-.16.01-.24.01zm-2.57 7.5c-.33 0-.67-.02-1-.06-2.91-.36-5.11-2.46-4.91-4.69.2-2.23 2.73-3.81 5.64-3.45.33.04.65.11.96.2-.61.5-1.02 1.22-1.09 2.06-.15 1.71 1.52 3.27 3.74 3.48.16.02.32.02.48.03-.81 1.45-2.59 2.43-4.62 2.43z"/></svg>
+          <span>微博</span>
+        </a>
+        <!-- LinkedIn -->
+        <a id="share-linkedin" href="#" target="_blank" rel="noopener" onclick="openShare(event, 'linkedin')" class="inline-flex items-center gap-1.5 px-3.5 py-2 border border-[var(--border)] rounded-lg text-xs text-gray-400 hover:text-white hover:border-[var(--border-light)] transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <!-- Telegram -->
+        <a id="share-telegram" href="#" target="_blank" rel="noopener" onclick="openShare(event, 'telegram')" class="inline-flex items-center gap-1.5 px-3.5 py-2 border border-[var(--border)] rounded-lg text-xs text-gray-400 hover:text-white hover:border-[var(--border-light)] transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.324-.437.89-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          <span>Telegram</span>
+        </a>
+        <!-- 复制链接 -->
+        <button onclick="copyLink()" class="inline-flex items-center gap-1.5 px-3.5 py-2 border border-[var(--border)] rounded-lg text-xs text-gray-400 hover:text-white hover:border-[var(--border-light)] transition">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           <span id="copy-btn-text">复制链接</span>
         </button>
-        <a href="https://github.com/SonicBotMan/labor-rights-defense" class="px-6 py-3 bg-red-500 hover:bg-red-600 rounded-lg text-sm font-medium transition flex items-center justify-center gap-2">
+        <!-- GitHub -->
+        <a href="https://github.com/SonicBotMan/labor-rights-defense" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3.5 py-2 border border-red-500/30 bg-red-500/10 rounded-lg text-xs text-red-400 hover:text-red-300 hover:border-red-500/50 transition">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
+          <span>GitHub</span>
         </a>
       </div>
     </div>
@@ -659,26 +701,61 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 });
 
 // ============== Copy link ==============
+const PAGE_URL = 'https://sonicbotman.github.io/labor-rights-defense/';
+const SHARE_TEXT = '被 PIP 了？被通知解除？不要当场签字。说「我考虑一下」然后离开。去年 454 万劳动者通过仲裁维权，平均拿到 2.25 万。';
+
 function copyLink() {
-  const url = 'https://sonicbotman.github.io/labor-rights-defense/';
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(() => {
-      document.getElementById('copy-btn-text').textContent = '已复制';
-      setTimeout(() => {
-        document.getElementById('copy-btn-text').textContent = '复制链接';
-      }, 2000);
+    navigator.clipboard.writeText(PAGE_URL).then(() => {
+      const el = document.getElementById('copy-btn-text');
+      el.textContent = '已复制';
+      setTimeout(() => { el.textContent = '复制链接'; }, 2000);
     });
   } else {
-      const ta = document.createElement('textarea');
-      ta.value = url;
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); } catch(e) {}
-      document.body.removeChild(ta);
-      document.getElementById('copy-btn-text').textContent = '已复制';
-      setTimeout(() => {
-        document.getElementById('copy-btn-text').textContent = '复制链接';
-      }, 2000);
+    const ta = document.createElement('textarea');
+    ta.value = PAGE_URL;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+    const el = document.getElementById('copy-btn-text');
+    el.textContent = '已复制';
+    setTimeout(() => { el.textContent = '复制链接'; }, 2000);
+  }
+}
+
+function copyShareText() {
+  const text = SHARE_TEXT + '\n' + PAGE_URL;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copy-text-btn');
+      btn.textContent = '已复制 ✓';
+      setTimeout(() => { btn.textContent = '复制配文'; }, 2000);
+    });
+  }
+}
+
+function openShare(e, platform) {
+  e.preventDefault();
+  const text = encodeURIComponent(SHARE_TEXT);
+  const url = encodeURIComponent(PAGE_URL);
+  let shareUrl = '';
+  switch(platform) {
+    case 'twitter':
+      shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+      break;
+    case 'weibo':
+      shareUrl = `https://service.weibo.com/share/share.php?title=${encodeURIComponent(SHARE_TEXT + ' ' + PAGE_URL)}&url=${url}`;
+      break;
+    case 'linkedin':
+      shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+      break;
+    case 'telegram':
+      shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+      break;
+  }
+  if (shareUrl) {
+    window.open(shareUrl, '_blank', 'width=600,height=500,noopener');
   }
 }
 </script>
